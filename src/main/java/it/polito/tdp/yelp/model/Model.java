@@ -62,4 +62,36 @@ public class Model {
 	public int nArchi() {
 		return this.grafo.edgeSet().size();
 	}
+	
+	public List <String> getCitta(){
+		return dao.getCitta();
+	}
+	/*
+	 Trovare nel grafo e stampare a video il locale commerciale migliore dove trascorrere la serata.
+	 Tale locale è definito come il vertice del grafo per cui la somma dei pesi dei suoi archi entranti
+	 meno la somma del peso dei suoi archi uscenti sia massima
+	 */
+	public Business getMigliore(int anno, String citta) {
+		double sommaEntranti = 0.0;
+		double sommaUscenti = 0.0;
+		double somma = 0.0;
+		Business migliore = null;
+		for(Business b : this.grafo.vertexSet() ) {
+			for(DefaultWeightedEdge e : grafo.incomingEdgesOf(b)) {
+				sommaEntranti+= grafo.getEdgeWeight(e);
+			}
+			for(DefaultWeightedEdge e : grafo.outgoingEdgesOf(b)) {
+				sommaUscenti+= grafo.getEdgeWeight(e);
+			}
+			b.setSommaPesi(sommaEntranti-sommaUscenti);
+		}
+		
+		for(Business b : this.grafo.vertexSet() ) {
+			if(b.getSommaPesi()>somma) {
+				migliore = b;
+				somma = b.getSommaPesi();
+			}
+		}
+	 return migliore;	
+	}
 }

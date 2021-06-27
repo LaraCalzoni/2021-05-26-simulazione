@@ -68,7 +68,7 @@ public class FXMLController {
     	}
     	this.model.creaGrafo(anno, citta);
     	txtResult.appendText("GRAFO CREATO"+"\n");
-    	txtResult.appendText("# vertici = "+this.model.nArchi()+"\n");
+    	txtResult.appendText("# vertici = "+this.model.nVertici()+"\n");
     	txtResult.appendText("# archi = "+this.model.nArchi()+"\n");
     
     	
@@ -76,7 +76,17 @@ public class FXMLController {
 
     @FXML
     void doLocaleMigliore(ActionEvent event) {
-
+    	txtResult.clear();
+    	
+    	if(this.cmbCitta.getValue()==null || this.cmbAnno.getValue()==null) {
+    		txtResult.appendText("Selezionare input!!!");
+    		return;
+    	}
+    	String citta = this.cmbCitta.getValue();
+    	int anno = this.cmbAnno.getValue();
+    	Business migliore = this.model.getMigliore(anno, citta);
+    	txtResult.appendText("Il locale migliore è : "+migliore+" con "+migliore.getSommaPesi());
+    	
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
@@ -93,11 +103,8 @@ public class FXMLController {
     
     public void setModel(Model model) {
     	this.model = model;
-    	List <String> citta = new ArrayList<>();
-    	for(Business b : this.model.getTuttiBusiness()) {
-    		citta.add(b.getCity());
-    	}
-    	this.cmbCitta.getItems().addAll(citta);
+    	
+    	this.cmbCitta.getItems().addAll(this.model.getCitta());
     	
     	List <Integer> anni = new ArrayList<>();
     	for( int i = 2005; i<= 2013; i++) {

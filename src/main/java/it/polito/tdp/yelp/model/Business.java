@@ -14,6 +14,7 @@ public class Business {
 	private String state;
 	private double stars;
 	private double media;
+	private double sommaPesi;
 	
 	
 	public Business(String businessId, String fullAddress, String active, String categories, String city, int reviewCount,
@@ -32,7 +33,7 @@ public class Business {
 		this.state = state;
 		this.stars = stars;
 		media = 0.0;
-		
+		sommaPesi = 0.0;
 	}
 	
 	public String getBusinessId() {
@@ -139,6 +140,19 @@ public class Business {
 
 	public void setMedia(double media) {
 		this.media = media;
+	}
+
+	public double getSommaPesi() {
+		return sommaPesi;
+	}
+
+	public void setSommaPesi(double sommaPesi) {
+		this.sommaPesi = sommaPesi;
+	}
+
+	@Override
+	public String toString() {
+		return businessName;
 	}
 
 	
