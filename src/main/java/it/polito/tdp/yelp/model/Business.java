@@ -13,6 +13,7 @@ public class Business {
 	private double longitude;
 	private String state;
 	private double stars;
+	private double media;
 	
 	
 	public Business(String businessId, String fullAddress, String active, String categories, String city, int reviewCount,
@@ -30,6 +31,8 @@ public class Business {
 		this.longitude = longitude;
 		this.state = state;
 		this.stars = stars;
+		media = 0.0;
+		
 	}
 	
 	public String getBusinessId() {
@@ -128,6 +131,14 @@ public class Business {
 		} else if (!businessId.equals(other.businessId))
 			return false;
 		return true;
+	}
+
+	public double getMedia() {
+		return media;
+	}
+
+	public void setMedia(double media) {
+		this.media = media;
 	}
 
 	
