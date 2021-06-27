@@ -5,8 +5,11 @@
 package it.polito.tdp.yelp;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import it.polito.tdp.yelp.model.Business;
 import it.polito.tdp.yelp.model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,16 +38,16 @@ public class FXMLController {
     private Button btnPercorso; // Value injected by FXMLLoader
 
     @FXML // fx:id="cmbCitta"
-    private ComboBox<?> cmbCitta; // Value injected by FXMLLoader
+    private ComboBox<String> cmbCitta; // Value injected by FXMLLoader
 
     @FXML // fx:id="txtX"
     private TextField txtX; // Value injected by FXMLLoader
 
     @FXML // fx:id="cmbAnno"
-    private ComboBox<?> cmbAnno; // Value injected by FXMLLoader
+    private ComboBox<Integer> cmbAnno; // Value injected by FXMLLoader
 
     @FXML // fx:id="cmbLocale"
-    private ComboBox<?> cmbLocale; // Value injected by FXMLLoader
+    private ComboBox<Business> cmbLocale; // Value injected by FXMLLoader
 
     @FXML // fx:id="txtResult"
     private TextArea txtResult; // Value injected by FXMLLoader
@@ -56,7 +59,19 @@ public class FXMLController {
 
     @FXML
     void doCreaGrafo(ActionEvent event) {
-
+    	txtResult.clear();
+    	String citta = this.cmbCitta.getValue();
+    	Integer anno = this.cmbAnno.getValue();
+    	if(citta==null || anno==null) {
+    		txtResult.appendText("Selezionare input!!!");
+    		return;
+    	}
+    	this.model.creaGrafo(anno, citta);
+    	txtResult.appendText("GRAFO CREATO"+"\n");
+    	txtResult.appendText("# vertici = "+this.model.nArchi()+"\n");
+    	txtResult.appendText("# archi = "+this.model.nArchi()+"\n");
+    
+    	
     }
 
     @FXML
@@ -78,5 +93,16 @@ public class FXMLController {
     
     public void setModel(Model model) {
     	this.model = model;
+    	List <String> citta = new ArrayList<>();
+    	for(Business b : this.model.getTuttiBusiness()) {
+    		citta.add(b.getCity());
+    	}
+    	this.cmbCitta.getItems().addAll(citta);
+    	
+    	List <Integer> anni = new ArrayList<>();
+    	for( int i = 2005; i<= 2013; i++) {
+    		anni.add(i);
+    	}
+    	this.cmbAnno.getItems().addAll(anni);
     }
 }

@@ -1,7 +1,10 @@
 package it.polito.tdp.yelp.model;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.jgrapht.Graphs;
 import org.jgrapht.graph.DefaultWeightedEdge;
@@ -48,5 +51,15 @@ public class Model {
 		
 	}
 	
+	public Collection <Business> getTuttiBusiness(){
+		return this.idMap.values();
+	}
 	
+	public int nVertici() {
+		return this.grafo.vertexSet().size();
+	}
+	
+	public int nArchi() {
+		return this.grafo.edgeSet().size();
+	}
 }
